@@ -205,6 +205,8 @@
                 ...
               });
 
+              ...
+
               function getItemCount( selector ){
                 return $( selector ).length;
               }
@@ -228,6 +230,7 @@
               init : function(){
                 div1.on('click', this.handleDivClick);
                 div1.on('change', this.handleDivChange);
+                ...
                 this.itemCount = 
                     this.getItemCount( 'li.item' );
               },
@@ -241,17 +244,49 @@
               handleDivClick : function( e ){ ... }
 
               handleDivChange : function() { ...}
+
+              ...
             };
           </code></pre>
         </section>
 
         <section>
-          <p>Writing test cases</p>
-          <ul>
-            <li>Test should be through</li>
-            <li>Test should only serve one single purpose</li>
-            <li>Test should be independent</li>
-          </ul>
+          <section>
+            <p>Good Practices on Writing test cases</p>
+            <p>General guidelines</p>
+            <ul>
+              <li>Lightweight</li>
+              <li>Repeatable</li>
+              <li>Fast</li>
+              <li>Consistent</li>
+              <li>Easy to write and read</li>
+            </ul>
+          </section>
+          <section>
+            <p>Make each test isolated and independent to all the others</p>
+            <p>Any given behaviour should be specified in one and only one test</p>
+            <p>The execution/order of execution of one test cannot affect the others</p>
+          </section>
+          <section>
+            <p>Each test should only test one code unit</p>
+            <p>Don't test multiple concerns in the same test</p>
+            <pre><code data-trim>
+              it('should properly validate and update error message', function(){...})
+              
+              it('should properly valudate', function(){...})
+              it('should update error message', function(){...})
+            </code></pre>
+          </section>
+          <section>
+            <p>Setup properly the actions that apply to all the tests involved</p>
+            <pre><code>
+              beforeEach, afterEach, beforeAll, afterAll
+            </code></pre>
+          </section>
+          <section>
+            <p>Name  unit tests clearly and consistently</p>
+            <p>All the <mark>describe</mark> and <mark>it</mark> should be informative</p>
+          </section>
         </section>
 
         <section>
@@ -259,7 +294,13 @@
           <ul>
             <li>Always run regression test when refactoring code</li>
             <li>Add unit test when adding new functionality</li>
+            <li>Create new tests for every defect</li>
           </ul>
+        </section>
+
+        <section>
+          <h2>References</h2>
+          <a href="https://github.com/mawrkus/js-unit-testing-guide">https://github.com/mawrkus/js-unit-testing-guide</a>
         </section>
 
 			</div>
@@ -269,6 +310,7 @@
 		<script src="js/reveal.js"></script>
 		<script>
 			Reveal.initialize({
+        width: 1280,
 				controls: true,
 				progress: true,
 				history: true,
