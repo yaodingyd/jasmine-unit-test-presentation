@@ -14,6 +14,25 @@
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
+    <style>
+      .left {
+        left:-8.33%;
+        text-align: left;
+        float: left;
+        width:50%;
+        z-index:-10;
+      }
+
+      .right {
+        left:31.25%;
+        top: 75px;
+        float: right;
+        text-align: right;
+        z-index:-10;
+        width:50%;
+      }
+    </style>
+
 	</head>
 
 	<body>
@@ -122,8 +141,18 @@
 
         <section>
           <h2>Spies</h2>
-          <p>Spies are utilities provided by jasmine to moniter function calls.</p>
-          <p>To use it we tell Jasmine to <strong class="red">spyOn</strong> something. By default they are similar to mocks in other unit testing frameworks.</p>
+          <section>
+            <p>Spies are utilities provided by jasmine to monitor function calls.</p>
+          </section>
+          <section>
+            <p>A spy can stub any function and tracks calls to it and all arguments.</p>
+          </section>
+          <section>
+            <p>use jasmine.createSpy() with jasmine.clock() jasmine.ajax() to handle asynchronous event</p>
+          </section>
+          <section>
+            <p>To use it we tell Jasmine to <strong class="red">spyOn</strong> something. By default they are similar to mocks in other unit testing frameworks.</p>
+          </section>
         </section>
 
         <section>
@@ -165,8 +194,7 @@
           <h2>Spy matchers</h2>
           <p>validates that the method was called</p>
           <pre><code data-trim>
-            expect( myObj.showOtherDiv ).toHaveBeenCalledWith( args );
-            //validates that the method was called with specific arguments  
+            expect( myObj.showOtherDiv ).toHaveBeenCalled();
           </code></pre>
           <p>validates that the method was called with specific arguments</p>
           <pre><code data-trim>
@@ -183,7 +211,7 @@
             </p>
           </section>
           <section>
-            Complex functions: if a function is more than 10 lines, it’s highly likely that it’s doing too much.
+            Complex functions: if a function is doing too much.
           </section>
           <section>
             Hidden or shared state: some important state or varible we need to test on but hidden in anonymous functions.
@@ -225,29 +253,91 @@
 
         <section>
           <p>Make it more testable</p>
-          <pre><code data-trim>
-            var app = {
-              init : function(){
-                div1.on('click', this.handleDivClick);
-                div1.on('change', this.handleDivChange);
+          <section>
+            <div class="left">
+              <pre><code data-trim>
+                $().ready(function(){
+                  //a bunch of codes
+                  //doing first task
+                  //doing second task
+                })
+              </code></pre>
+            </div>
+            <div class="right">
+              <pre><code data-trim>
+                function init() {
+                  do1();
+                  do2();
+                  ...
+                }
+                
+                function do1 () {}
+                function do2 () {}
                 ...
-                this.itemCount = 
-                    this.getItemCount( 'li.item' );
-              },
+              </code></pre>
+            </div>
+          </section>
 
-              itemCount: 0,
+          <section>
+            <div class="left">
+              <pre><code data-trim>
+                div1.on('click',function(){
+                   ...
+                });
+              </code></pre>
+            </div>
+            <div class="right">
+              <pre><code data-trim>
+                function handleClick () {}
 
-              getItemCount : function( selector ){
-                return $( selector ).length;
-              },
+                div1.on('click', handleClick);
+              </code></pre>
+            </div>
+          </section>
 
-              handleDivClick : function( e ){ ... }
+          <section>
+            <div class="left">
+              <pre><code data-trim>
+                function do1() {
+                  var someImportantVariable = value;
+                }
+              </code></pre>
+            </div>
+            <div class="right">
+              <pre><code data-trim>
+                var app = {
+                  someImportantVariable = value,
+                  ...
+                }
+              </code></pre>
+            </div>
+          </section>
 
-              handleDivChange : function() { ...}
+          <section>
+              <pre><code data-trim>
+                var app = {
+                  init : function(){
+                    div1.on('click', this.handleDivClick);
+                    div1.on('change', this.handleDivChange);
+                    ...
+                    this.itemCount = 
+                        this.getItemCount( 'li.item' );
+                  },
 
-              ...
-            };
-          </code></pre>
+                  itemCount: 0,
+
+                  getItemCount : function( selector ){
+                    return $( selector ).length;
+                  },
+
+                  handleDivClick : function( e ){ ... }
+
+                  handleDivChange : function() { ...}
+
+                  ...
+                };
+              </code></pre>
+          </section>
         </section>
 
         <section>
